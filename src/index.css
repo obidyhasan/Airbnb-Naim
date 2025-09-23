@@ -1,5 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -42,6 +47,7 @@
 }
 
 :root {
+  --custom-gray: oklch(0.86 0 0);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
