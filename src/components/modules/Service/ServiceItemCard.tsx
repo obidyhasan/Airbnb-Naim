@@ -1,17 +1,30 @@
 import type { IServiceCard } from "@/types";
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router";
+import wishlistIcon from "@/assets/icon/wishlist.svg";
 
 const ServiceItemCard = ({ service }: { service: IServiceCard }) => {
   return (
     <div className="my-4">
       <Link to={"/"}>
-        <figure className="w-full h-[220px] ">
+        <figure className="w-full h-[220px] relative">
           <img
             src={service.images[0]}
             alt="service image"
             className="w-full h-full object-cover rounded-2xl"
           />
+          <div className="absolute top-3 px-2 w-full flex items-center justify-between">
+            {service.isGuestFavorite ? (
+              <div className="bg-gray-50 rounded-full px-3 py-1 flex items-center justify-center">
+                <span className="text-xs font-bold">Guest favorite</span>
+              </div>
+            ) : (
+              <span></span>
+            )}
+            <div>
+              <img className="w-6" src={wishlistIcon} alt="wishlist" />
+            </div>
+          </div>
         </figure>
         <div className="p-2">
           <h1 className="font-bold text-sm">{service.name}</h1>
