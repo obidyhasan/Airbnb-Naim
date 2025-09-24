@@ -18,7 +18,7 @@ import { FaXTwitter, FaInstagram } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#FCFCFC] border-t border-muted">
+    <footer className="w-full bg-[#FCFCFC] border-t border-muted mt-3">
       <div className="max-w-[1920px] mx-auto px-12 pt-12">
         <h1 className="text-2xl font-bold">Inspiration for future getaways</h1>
         <div className="my-3">
