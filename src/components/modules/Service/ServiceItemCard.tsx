@@ -6,7 +6,7 @@ import wishlistIcon from "@/assets/icon/wishlist.svg";
 const ServiceItemCard = ({ service }: { service: IServiceCard }) => {
   return (
     <div className="my-4">
-      <Link to={"/"}>
+      <Link to={`/rooms/${service?.serviceId}`}>
         <figure className="w-full h-[220px] relative">
           <img
             src={service.images[0]}
