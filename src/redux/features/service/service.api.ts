@@ -7,6 +7,12 @@ export const serviceApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getSingleServices: builder.query({
+      query: ({ id }) => ({
+        url: `/service/${id}`,
+        method: "GET",
+      }),
+    }),
     // allUsers: builder.query({
     //   query: (params) => ({
     //     url: "/user",
@@ -18,4 +24,4 @@ export const serviceApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllServicesQuery } = serviceApi;
+export const { useGetAllServicesQuery, useGetSingleServicesQuery } = serviceApi;

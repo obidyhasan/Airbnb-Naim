@@ -20,7 +20,7 @@ import webIcon from "@/assets/icon/web.svg";
 import menuIcon from "@/assets/icon/menu.svg";
 import homeImg from "@/assets/image/home_img.png";
 import { IoSearch } from "react-icons/io5";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import b1 from "@/assets/services/b-1.png";
 import b2 from "@/assets/services/download (24).svg";
 import b3 from "@/assets/services/download (25).svg";
@@ -48,7 +48,7 @@ import d2 from "@/assets/services/download.svg";
 import d3 from "@/assets/services/download (4).svg";
 import d4 from "@/assets/services/download (1).svg";
 
-import type { IFooterLink } from "@/types";
+import type { IFooterLink, IReview, IServiceCard } from "@/types";
 import { FaFacebook } from "react-icons/fa";
 import { TbWorld } from "react-icons/tb";
 import { FaXTwitter, FaInstagram } from "react-icons/fa6";
@@ -59,9 +59,19 @@ import {
   supportLinks,
 } from "@/constants/footerData";
 import FooterLinkItem from "@/components/modules/Footer/FooterLinkItem";
+import { useGetSingleServicesQuery } from "@/redux/features/service/service.api";
+import { reviewsData } from "@/constants/commentData";
+import ReviewItemCard from "@/components/modules/Service/ReviewItemCard";
 
 const ServiceDetails = () => {
+  const { id } = useParams();
   const [date, setDate] = useState<Date | undefined>(new Date());
+  const { data, isLoading } = useGetSingleServicesQuery({ id });
+  const services: IServiceCard = data?.data?.data;
+  if (isLoading) return;
+
+  console.log(services);
+  console.log(id);
 
   return (
     <div>
@@ -122,11 +132,11 @@ const ServiceDetails = () => {
           </div>
         </div>
       </nav>
-      <section className="my-6 max-w-6xl mx-auto px-6 md:px-8">
+      <section className="relative my-6 max-w-6xl mx-auto px-6 md:px-8">
         {/* title */}
         <div className="flex items-center justify-between">
           <h1 className="font-bold text-2xl hidden md:flex">
-            Japanese themed studio KLCC area
+            {services?.name}
           </h1>
           <Link className="md:hidden" to={"/"}>
             <FaArrowLeft />
@@ -153,7 +163,7 @@ const ServiceDetails = () => {
           <div>
             <figure className="col-span-2 row-span-2 w-full h-full">
               <img
-                src=""
+                src={services?.images[0]}
                 alt="room image"
                 className="md:hidden bg-muted w-full h-[300px] object-cover rounded-bl-xl rounded-tl-xl"
               />
@@ -162,37 +172,37 @@ const ServiceDetails = () => {
           <div className="md:grid gap-3 grid-cols-4 relative hidden">
             <figure className="col-span-2 row-span-2 w-full h-full">
               <img
-                src=""
+                src={services?.images[0]}
                 alt="room image"
-                className="bg-muted w-full h-full object-cover rounded-bl-xl rounded-tl-xl"
+                className="cursor-pointer bg-muted w-full h-full object-cover rounded-bl-xl rounded-tl-xl"
               />
             </figure>
             <figure className="h-60">
               <img
-                src=""
+                src={services?.images[1]}
                 alt="room image"
-                className="bg-muted w-full h-full object-cover"
+                className="cursor-pointer bg-muted w-full h-full object-cover"
               />
             </figure>
             <figure className="h-60">
               <img
-                src=""
+                src={services?.images[2]}
                 alt="room image"
-                className="bg-muted w-full h-full object-cover rounded-tr-xl"
+                className="cursor-pointer bg-muted w-full h-full object-cover rounded-tr-xl"
               />
             </figure>
             <figure className="h-60">
               <img
-                src=""
+                src={services?.images[3]}
                 alt="room image"
-                className="bg-muted w-full h-full object-cover"
+                className="cursor-pointer bg-muted w-full h-full object-cover"
               />
             </figure>
             <figure className="h-60">
               <img
-                src=""
+                src={services?.images[4]}
                 alt="room image"
-                className="bg-muted w-full h-full object-cover rounded-br-xl"
+                className="cursor-pointer bg-muted w-full h-full object-cover rounded-br-xl"
               />
             </figure>
             <Button
@@ -208,9 +218,7 @@ const ServiceDetails = () => {
         <div className="grid grid-cols-3 gap-10 border-b pb-10">
           <div className="col-span-3 lg:col-span-2">
             <div>
-              <h2 className="font-semibold text-2xl">
-                Entire rental unit in Kuala Lumpur, Malaysia
-              </h2>
+              <h2 className="font-semibold text-2xl">{services?.city}</h2>
               <p>3 guests · 1 bedroom · 1 bed · 1 bath</p>
             </div>
             <div className="border rounded-2xl py-4 px-2 sm:p-5 my-6 flex gap-2 sm:gap-4 justify-between lg:justify-center items-center">
@@ -226,7 +234,7 @@ const ServiceDetails = () => {
               </p>
               <div className="flex">
                 <div className="text-center border-r px-2 sm:px-5">
-                  <p className="font-bold text-xl">4.87</p>
+                  <p className="font-bold text-xl">{services?.rate}</p>
                   <div className="flex items-center justify-center gap-0.5">
                     <IoStar className="w-3" />
                     <IoStar className="w-3" />
@@ -236,7 +244,9 @@ const ServiceDetails = () => {
                   </div>
                 </div>
                 <div className="text-center  px-2 sm:px-5">
-                  <p className="font-bold text-xl">124</p>
+                  <p className="font-bold text-xl">
+                    {services?.author?.reviews}
+                  </p>
                   <p className="text-sm font-bold">Reviews</p>
                 </div>
               </div>
@@ -244,8 +254,8 @@ const ServiceDetails = () => {
             <div className="flex gap-5 items-center pt-2 pb-5 border-b">
               <figure className="relative">
                 <img
-                  src=""
-                  alt=""
+                  src="https://i.ibb.co.com/Zz0PMNj/listening-applicant.jpg"
+                  alt="author image"
                   className="w-10 h-10 object-cover rounded-full bg-muted"
                 />
                 <img
@@ -326,7 +336,7 @@ const ServiceDetails = () => {
             <div className="py-8 border-b">
               <h1 className="font-bold text-xl">Where you'll sleep</h1>
               <img
-                src=""
+                src={services?.images[0]}
                 alt=""
                 className="max-w-60 w-full h-[160px] rounded-lg bg-muted mt-4 mb-3"
               />
@@ -409,8 +419,8 @@ const ServiceDetails = () => {
               </div>
             </div>
           </div>
-          <div className="relative hidden lg:flex">
-            <div className="sticky top-32 ">
+          <div className="hidden lg:flex w-full">
+            <div className="sticky top-32 w-full">
               <div className="border rounded-xl shadow-lg py-8 px-5 flex flex-col gap-4">
                 <h2 className="font-semibold text-2xl">Add dates for prices</h2>
                 <div className="grid grid-cols-2 grid-rows-2 border border-black rounded-xl">
@@ -450,7 +460,7 @@ const ServiceDetails = () => {
                 className="w-10 sm:w-14"
               />
               <p className="w-min text-center font-bold text-6xl sm:text-8xl">
-                4.87
+                {services?.rate}
               </p>
               <img
                 src={success2}
@@ -542,198 +552,9 @@ const ServiceDetails = () => {
           </div>
           <div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              <div>
-                <div className="flex items-center  gap-4">
-                  <img
-                    src=""
-                    className="w-12 h-12 bg-muted object-cover rounded-full"
-                    alt=""
-                  />
-                  <div>
-                    <h1 className="font-bold">Elena&Natalia</h1>
-                    <p className="text-sm">11 years on Airbnb</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 mt-3 mb-1">
-                  <div className="flex gap-0.5">
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                  </div>
-                  <p className="text-sm font-bold">· 2 weeks ago</p>
-                </div>
-                <p className="line-clamp-3">
-                  We stayed there for a week. It's a very convenient place
-                  wherever you wanna move around the city. Walkable distance to
-                  Petronas
-                  <span> ...</span>
-                </p>
-                <p className="font-bold underline mt-2 cursor-pointer">
-                  Show more
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center  gap-4">
-                  <img
-                    src=""
-                    className="w-12 h-12 bg-muted object-cover rounded-full"
-                    alt=""
-                  />
-                  <div>
-                    <h1 className="font-bold">Elena&Natalia</h1>
-                    <p className="text-sm">11 years on Airbnb</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 mt-3 mb-1">
-                  <div className="flex gap-0.5">
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                  </div>
-                  <p className="text-sm font-bold">· 2 weeks ago</p>
-                </div>
-                <p className="line-clamp-3">
-                  We stayed there for a week. It's a very convenient place
-                  wherever you wanna move around the city. Walkable distance to
-                  Petronas
-                  <span> ...</span>
-                </p>
-                <p className="font-bold underline mt-2 cursor-pointer">
-                  Show more
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center  gap-4">
-                  <img
-                    src=""
-                    className="w-12 h-12 bg-muted object-cover rounded-full"
-                    alt=""
-                  />
-                  <div>
-                    <h1 className="font-bold">Elena&Natalia</h1>
-                    <p className="text-sm">11 years on Airbnb</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 mt-3 mb-1">
-                  <div className="flex gap-0.5">
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                  </div>
-                  <p className="text-sm font-bold">· 2 weeks ago</p>
-                </div>
-                <p className="line-clamp-3">
-                  We stayed there for a week. It's a very convenient place
-                  wherever you wanna move around the city. Walkable distance to
-                  Petronas
-                  <span> ...</span>
-                </p>
-                <p className="font-bold underline mt-2 cursor-pointer">
-                  Show more
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center  gap-4">
-                  <img
-                    src=""
-                    className="w-12 h-12 bg-muted object-cover rounded-full"
-                    alt=""
-                  />
-                  <div>
-                    <h1 className="font-bold">Elena&Natalia</h1>
-                    <p className="text-sm">11 years on Airbnb</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 mt-3 mb-1">
-                  <div className="flex gap-0.5">
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                  </div>
-                  <p className="text-sm font-bold">· 2 weeks ago</p>
-                </div>
-                <p className="line-clamp-3">
-                  We stayed there for a week. It's a very convenient place
-                  wherever you wanna move around the city. Walkable distance to
-                  Petronas
-                  <span> ...</span>
-                </p>
-                <p className="font-bold underline mt-2 cursor-pointer">
-                  Show more
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center  gap-4">
-                  <img
-                    src=""
-                    className="w-12 h-12 bg-muted object-cover rounded-full"
-                    alt=""
-                  />
-                  <div>
-                    <h1 className="font-bold">Elena&Natalia</h1>
-                    <p className="text-sm">11 years on Airbnb</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 mt-3 mb-1">
-                  <div className="flex gap-0.5">
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                  </div>
-                  <p className="text-sm font-bold">· 2 weeks ago</p>
-                </div>
-                <p className="line-clamp-3">
-                  We stayed there for a week. It's a very convenient place
-                  wherever you wanna move around the city. Walkable distance to
-                  Petronas
-                  <span> ...</span>
-                </p>
-                <p className="font-bold underline mt-2 cursor-pointer">
-                  Show more
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center  gap-4">
-                  <img
-                    src=""
-                    className="w-12 h-12 bg-muted object-cover rounded-full"
-                    alt=""
-                  />
-                  <div>
-                    <h1 className="font-bold">Elena&Natalia</h1>
-                    <p className="text-sm">11 years on Airbnb</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 mt-3 mb-1">
-                  <div className="flex gap-0.5">
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                    <IoStar className="w-2.5" />
-                  </div>
-                  <p className="text-sm font-bold">· 2 weeks ago</p>
-                </div>
-                <p className="line-clamp-3">
-                  We stayed there for a week. It's a very convenient place
-                  wherever you wanna move around the city. Walkable distance to
-                  Petronas
-                  <span> ...</span>
-                </p>
-                <p className="font-bold underline mt-2 cursor-pointer">
-                  Show more
-                </p>
-              </div>
+              {reviewsData?.map((review: IReview, idx: number) => (
+                <ReviewItemCard key={idx} review={review} />
+              ))}
             </div>
             <div className="flex gap-5 items-center py-12 border-b flex-wrap">
               <Button
@@ -747,16 +568,16 @@ const ServiceDetails = () => {
               </p>
             </div>
           </div>
-          <div>
+          {/* <div>
             <div className="pt-10 pb-16 border-b">
               <h1 className="font-bold text-xl">Where you'll sleep</h1>
 
               <p className="text-base font-semibold text-muted-foreground mt-5">
-                Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur Malaysia
+                {services?.author?.address}
               </p>
               <div className="w-full h-[470px] bg-muted mt-6"></div>
             </div>
-          </div>
+          </div> */}
           {/* Meet Your Host */}
           <div>
             <div className="pt-10 pb-16 border-b">
@@ -768,15 +589,19 @@ const ServiceDetails = () => {
                     <div className="w-2/3 flex flex-col items-center justify-center">
                       <figure className="relative">
                         <img
-                          src=""
-                          className="w-28 h-28 rounded-full bg-muted"
+                          src={
+                            "https://i.ibb.co.com/Zz0PMNj/listening-applicant.jpg"
+                          }
+                          className="w-28 h-28 rounded-full bg-muted object-cover"
                           alt=""
                         />
                         <figure className="absolute bottom-0 right-0  w-8 h-8 bg-pink-600 flex rounded-full items-center justify-center">
                           <img src={d3} className="w-4 h-4" alt="icon" />
                         </figure>
                       </figure>
-                      <h2 className="text-3xl font-bold mt-3">Ken Tat</h2>
+                      <h2 className="text-3xl font-bold mt-3">
+                        {services?.author?.name}
+                      </h2>
                       <div className="flex items-center gap-2">
                         <img src={d1} className="w-4 h-3" alt="" />
                         <p className="text-sm text-muted-foreground">
@@ -786,12 +611,15 @@ const ServiceDetails = () => {
                     </div>
                     <div className="w-1/3 py-3">
                       <div>
-                        <p className="font-extrabold text-xl">124</p>
+                        <p className="font-extrabold text-xl">
+                          {services?.author?.reviews}
+                        </p>
                         <span className="text-xs font-bold">Reviews</span>
                       </div>
                       <div className="py-3 border-y">
                         <p className="font-extrabold text-xl flex items-center gap-1">
-                          4.87 <FaStar className="text-sm" />
+                          {services?.author?.rating}{" "}
+                          <FaStar className="text-sm" />
                         </p>
                         <span className="text-xs font-bold">Rating</span>
                       </div>
@@ -804,12 +632,14 @@ const ServiceDetails = () => {
                   <div className="flex items-center gap-4 mt-6">
                     <img src={d4} className="w-5 h-5" alt="" />
                     <p className="font-semibold">
-                      Lives in Kuala Lumpur, Malaysia
+                      Lives in {services?.author?.address}
                     </p>
                   </div>
                 </div>
                 <div className=" lg:w-2/3">
-                  <h1 className="font-bold text-lg">Ken Tat is a Superhost</h1>
+                  <h1 className="font-bold text-lg">
+                    {services?.author?.name} is a Superhost
+                  </h1>
                   <p className="font-medium mt-3 mb-8">
                     Superhosts are experienced, highly rated hosts who are
                     committed to providing great stays for guests.
