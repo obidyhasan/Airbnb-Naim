@@ -1,6 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+
 import { GrFavorite } from "react-icons/gr";
 import { HiOutlineUserCircle } from "react-icons/hi2";
 import { CgSearch } from "react-icons/cg";
@@ -32,9 +31,7 @@ const CommonLayout = ({ children }: IProps) => {
 
   return (
     <div className=" min-h-screen flex flex-col relative">
-      <Navbar />
-      <div className="grow-1 mt-40 sm:mt-36 md:mt-52">{children}</div>
-      <Footer />
+      <div className="grow-1">{children}</div>
       {/* Bottom Section (only visible at top) */}
       {showBottom && (
         <div className="fixed bottom-0 w-full bg-white p-3 md:hidden flex items-center justify-center gap-16 border-t transition-all duration-300">

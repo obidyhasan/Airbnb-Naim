@@ -62,16 +62,16 @@ import FooterLinkItem from "@/components/modules/Footer/FooterLinkItem";
 import { useGetSingleServicesQuery } from "@/redux/features/service/service.api";
 import { reviewsData } from "@/constants/commentData";
 import ReviewItemCard from "@/components/modules/Service/ReviewItemCard";
+import { SkeletonServiceDetails } from "./SkeletonServiceDetails";
 
 const ServiceDetails = () => {
   const { id } = useParams();
   const [date, setDate] = useState<Date | undefined>(new Date());
   const { data, isLoading } = useGetSingleServicesQuery({ id });
   const services: IServiceCard = data?.data?.data;
-  if (isLoading) return;
-
-  console.log(services);
-  console.log(id);
+  if (isLoading) {
+    return <SkeletonServiceDetails />;
+  }
 
   return (
     <div>
