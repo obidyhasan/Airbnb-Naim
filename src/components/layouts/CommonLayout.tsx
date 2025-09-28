@@ -33,7 +33,7 @@ const CommonLayout = ({ children }: IProps) => {
   return (
     <div className=" min-h-screen flex flex-col relative">
       <Navbar />
-      <div className="grow-1 mt-40 sm:mt-36 md:mt-32 lg:mt-52">{children}</div>
+      <div className="grow-1 mt-40 sm:mt-36 md:mt-52">{children}</div>
       <Footer />
       {/* Bottom Section (only visible at top) */}
       {showBottom && (

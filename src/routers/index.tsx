@@ -12,10 +12,10 @@ export const router = createBrowserRouter([
         Component: Home,
         path: "/",
       },
-      {
-        Component: ServiceDetails,
-        path: "/rooms/:id",
-      },
     ],
+  },
+  {
+    Component: ServiceDetails,
+    path: "/rooms/:id",
   },
 ]);

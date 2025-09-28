@@ -34,7 +34,7 @@ const Navbar = () => {
         </Link>
 
         {isScrolled ? (
-          <div className="my-auto">
+          <div className="my-auto ">
             <div className="bg-white border-muted rounded-full flex justify-center items-center p-2 gap-3 shadow-md ">
               <div className="flex items-center justify-center gap-3">
                 <img src={homeImg} alt="home image" className="w-7 ml-2" />
@@ -56,34 +56,32 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <div>
-            <div className="flex gap-7">
-              <div className="flex items-center justify-center gap-3 py-2 border-black border-b-3">
-                <figure>
-                  <img src={homeImg} className="w-10" alt="home icon" />
-                </figure>
-                <h1 className="font-bold text-base">Homes</h1>
-              </div>
-              <div className="flex items-center justify-center gap-1 py-2">
-                <figure>
-                  <img
-                    src={experiencesImg}
-                    className="w-10 hover:scale-125 duration-300 transform"
-                    alt="experiences icon"
-                  />
-                </figure>
-                <h1 className="text-base text-gray-600">Experiences</h1>
-              </div>
-              <div className="flex items-center justify-center gap-3 py-2 ">
-                <figure>
-                  <img
-                    src={serviceImg}
-                    className="w-9 hover:scale-125 duration-300 transform"
-                    alt="home icon"
-                  />
-                </figure>
-                <h1 className="text-base text-gray-600">Services</h1>
-              </div>
+          <div className="flex gap-7">
+            <div className="flex items-center justify-center gap-3 py-2 border-black border-b-3">
+              <figure>
+                <img src={homeImg} className="w-10" alt="home icon" />
+              </figure>
+              <h1 className="font-bold text-base">Homes</h1>
+            </div>
+            <div className="flex items-center justify-center gap-1 py-2">
+              <figure>
+                <img
+                  src={experiencesImg}
+                  className="w-10 hover:scale-125 duration-300 transform"
+                  alt="experiences icon"
+                />
+              </figure>
+              <h1 className="text-base text-gray-600">Experiences</h1>
+            </div>
+            <div className="flex items-center justify-center gap-3 py-2 ">
+              <figure>
+                <img
+                  src={serviceImg}
+                  className="w-9 hover:scale-125 duration-300 transform"
+                  alt="home icon"
+                />
+              </figure>
+              <h1 className="text-base text-gray-600">Services</h1>
             </div>
           </div>
         )}
