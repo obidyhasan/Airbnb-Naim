@@ -3,11 +3,12 @@ import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router";
 import wishlistIcon from "@/assets/icon/wishlist.svg";
 
+// basis-1/2 sm:basis-1/4 md:basis-1/5 lg:basis-1/6 xl:basis-1/7
 const ServiceItemCard = ({ service }: { service: IServiceCard }) => {
   return (
     <div className="my-4">
       <Link to={`/rooms/${service?.serviceId}`}>
-        <figure className="w-full h-[220px] relative">
+        <figure className="w-full h-[160px]  md:h-[160px] lg:h-[180px] xl:h-[180px] 2xl:h-[240px] relative">
           <img
             src={service.images[0]}
             alt="service image"

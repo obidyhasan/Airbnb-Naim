@@ -4,7 +4,7 @@ import type { IService } from "@/types";
 
 const Home = () => {
   return (
-    <div className="max-w-[1920px] mx-auto px-12 mt-8">
+    <div className="max-w-[1920px] mx-auto px-6 lg:px-12 sm:mt-8">
       {servicesData?.map((serviceSection: IService) => {
         return (
           <ServiceSectionCard
