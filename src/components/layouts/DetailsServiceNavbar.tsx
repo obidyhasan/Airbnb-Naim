@@ -19,7 +19,10 @@ const DetailsServiceNavbar = () => {
             <img src={onlyLogo} alt="Airbnb Logo" />
           </Link>
 
-          <div className="cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Link
+            to={"/"}
+            className="cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          >
             <div className="my-auto cursor-pointer">
               <div className="bg-white border rounded-full flex justify-center items-center p-2 gap-3 shadow-md ">
                 <div className="flex items-center justify-center gap-3">
@@ -41,29 +44,35 @@ const DetailsServiceNavbar = () => {
                 </Button>
               </div>
             </div>
-          </div>
+          </Link>
 
           <div className="flex items-center gap-4 my-6">
-            <Button
-              variant={"ghost"}
-              className="rounded-full font-bold text-[15px]  hidden lg:flex"
-            >
-              Become a host
-            </Button>
-            <Button
-              variant={"ghost"}
-              size={"icon"}
-              className="rounded-full bg-muted hover:bg-gray-200 cursor-pointer"
-            >
-              <img src={webIcon} alt="web icon" className="w-4" />
-            </Button>
-            <Button
-              variant={"ghost"}
-              size={"icon"}
-              className="rounded-full hover:bg-gray-200 cursor-pointer"
-            >
-              <img src={menuIcon} alt="menu icon" className="w-4" />
-            </Button>
+            <Link to={"/"}>
+              <Button
+                variant={"ghost"}
+                className="rounded-full font-bold text-[15px] cursor-pointer  hidden lg:flex"
+              >
+                Become a host
+              </Button>
+            </Link>
+            <Link to={"/"}>
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                className="rounded-full bg-muted hover:bg-gray-200 cursor-pointer"
+              >
+                <img src={webIcon} alt="web icon" className="w-4" />
+              </Button>
+            </Link>
+            <Link to={"/"}>
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                className="rounded-full bg-muted hover:bg-gray-200 cursor-pointer"
+              >
+                <img src={menuIcon} alt="menu icon" className="w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
