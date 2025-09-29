@@ -79,7 +79,7 @@ const DetailsServiceFooter = () => {
               <span>© 2025 Airbnb, Inc.</span>
               <span className="font-bold hidden sm:flex">·</span>
             </div>
-            <div className="w-full sm:w-auto flex items-center justify-start gap-2">
+            <div className="w-full sm:w-auto flex flex-wrap items-center justify-start gap-2">
               <Link to={"/"} className="hover:underline">
                 Terms
               </Link>

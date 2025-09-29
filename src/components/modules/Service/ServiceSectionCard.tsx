@@ -17,7 +17,7 @@ const ServiceSectionCard = ({
   return (
     <div className="">
       <Carousel className="relative">
-        <h1 className="text-xl font-bold flex items-center justify-start mr-10">
+        <h1 className="text-xl font-bold flex items-center justify-start mr-16">
           {sectionService.title}
           <IoIosArrowForward className="text-base sm:flex hidden" />
         </h1>

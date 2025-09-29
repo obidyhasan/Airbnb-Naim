@@ -85,7 +85,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex lg:flex-row-reverse  flex-col gap-4 justify-between items-center py-7 border-t">
-          <div className="w-full lg:w-auto flex items-center justify-between lg:justify-center gap-3 ">
+          <div className="w-full lg:w-auto flex-wrap flex items-center justify-between lg:justify-center gap-3 ">
             <div className="flex items-center justify-between gap-3 ">
               <h1 className="font-bold flex items-center justify-center gap-2 cursor-pointer">
                 <TbWorld className="text-lg" />
@@ -125,7 +125,7 @@ const Footer = () => {
               <span>© 2025 Airbnb, Inc.</span>
               <span className="font-bold hidden sm:flex">·</span>
             </div>
-            <div className="w-full sm:w-auto flex items-center justify-start gap-2">
+            <div className="w-full sm:w-auto flex flex-wrap items-center justify-start gap-2">
               <Link to={"/"} className="hover:underline">
                 Terms
               </Link>

@@ -51,6 +51,11 @@ import type { IReview, IServiceCard } from "@/types";
 import { FaArrowLeft } from "react-icons/fa6";
 import DetailsServiceFooter from "@/components/layouts/DetailsServiceFooter";
 import ScrollToTop from "@/utils/ScrollToTop";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 const ServiceDetails = () => {
   const { id } = useParams();
@@ -95,14 +100,22 @@ const ServiceDetails = () => {
         </div>
         {/* Image */}
         <div className="mt-5 mb-8">
-          <div>
-            <figure className="col-span-2 row-span-2 w-full h-full">
-              <img
-                src={services?.images[0]}
-                alt="room image"
-                className="md:hidden bg-muted w-full h-[300px] object-cover rounded-xl"
-              />
-            </figure>
+          <div className="md:hidden">
+            <Carousel>
+              <CarouselContent>
+                {services?.images?.map((img: string) => (
+                  <CarouselItem>
+                    <figure className="col-span-2 row-span-2 w-full h-full">
+                      <img
+                        src={img}
+                        alt="room image"
+                        className=" bg-muted w-full h-[300px] object-cover rounded-xl"
+                      />
+                    </figure>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
           <div className="md:grid gap-3 grid-cols-4 relative hidden w-full h-full">
             <figure className="col-span-2 row-span-2 w-full h-[492px]">
