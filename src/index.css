@@ -6,6 +6,10 @@ body {
   font-family: "Nunito Sans", sans-serif;
 }
 
+.badgeBg {
+  background: linear-gradient(to bottom, #5e7594, #2e3e5d, #5e7594);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -66,7 +66,7 @@ const Navbar = () => {
           <img src={onlyLogo} alt="Airbnb Logo" />
         </Link>
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <AnimatePresence mode="wait">
             {isScrolled ? (
               <motion.div
@@ -77,7 +77,7 @@ const Navbar = () => {
                 transition={{ duration: 0.2, ease: "easeInOut" }}
                 className="my-auto"
               >
-                <div className="bg-white border-muted rounded-full flex justify-center items-center p-2 gap-3 shadow-md">
+                <div className="bg-white border rounded-full flex justify-center items-center p-2 gap-3 shadow-md">
                   <div className="flex items-center justify-center gap-3">
                     <img src={homeImg} alt="home image" className="w-7 ml-2" />
                     <h1 className="font-bold">Anywhere</h1>
@@ -108,29 +108,39 @@ const Navbar = () => {
                 transition={{ duration: 0.2, ease: "easeInOut" }}
                 className="flex gap-7"
               >
-                <div className="flex items-center justify-center gap-3 py-2 border-black border-b-3">
+                <div className="flex items-center justify-center gap-3 py-2 border-black border-b-3 cursor-pointer">
                   <figure>
                     <img src={homeImg} className="w-10" alt="home icon" />
                   </figure>
                   <h1 className="font-bold text-base">Homes</h1>
                 </div>
-                <div className="flex items-center justify-center gap-1 py-2">
-                  <figure>
+                <div className="flex items-center justify-center gap-1 py-2 cursor-pointer">
+                  <figure className="relative">
                     <img
                       src={experiencesImg}
                       className="w-10 hover:scale-125 duration-300 transform"
                       alt="experiences icon"
                     />
+                    <div className="absolute -top-2.5 -right-8 badgeBg py-0.5 px-1.5 rounded-t-sm rounded-br-sm border-[#2e3e5d]">
+                      <h1 className="text-[8px] font-extrabold text-white">
+                        NEW
+                      </h1>
+                    </div>
                   </figure>
                   <h1 className="text-base text-gray-600">Experiences</h1>
                 </div>
-                <div className="flex items-center justify-center gap-3 py-2">
-                  <figure>
+                <div className="flex items-center justify-center gap-3 py-2 cursor-pointer">
+                  <figure className="relative">
                     <img
                       src={serviceImg}
                       className="w-9 hover:scale-125 duration-300 transform"
                       alt="home icon"
                     />
+                    <div className="absolute -top-2.5 -right-8 badgeBg py-0.5 px-1.5 rounded-t-sm rounded-br-sm border-[#2e3e5d]">
+                      <h1 className="text-[8px] font-extrabold text-white">
+                        NEW
+                      </h1>
+                    </div>
                   </figure>
                   <h1 className="text-base text-gray-600">Services</h1>
                 </div>
@@ -142,21 +152,21 @@ const Navbar = () => {
         <div className="flex items-center gap-4 my-6">
           <Button
             variant={"ghost"}
-            className="rounded-full font-bold text-[15px]  hidden lg:flex"
+            className="rounded-full font-bold text-[15px]  hidden lg:flex cursor-pointer"
           >
             Become a host
           </Button>
           <Button
             variant={"ghost"}
             size={"icon"}
-            className="rounded-full bg-muted"
+            className="rounded-full bg-muted hover:bg-gray-200 cursor-pointer"
           >
             <img src={webIcon} alt="web icon" className="w-4" />
           </Button>
           <Button
             variant={"ghost"}
             size={"icon"}
-            className="rounded-full bg-muted"
+            className="rounded-full bg-muted hover:bg-gray-200 cursor-pointer"
           >
             <img src={menuIcon} alt="menu icon" className="w-4" />
           </Button>
@@ -173,21 +183,27 @@ const Navbar = () => {
         </div>
         <div>
           <div className="flex gap-5 items-center justify-between px-8 mt-5">
-            <div className="flex flex-col items-center justify-center border-black border-b-2">
-              <figure>
-                <img src={homeImg} className="w-6" alt="home icon" />
+            <div className="flex flex-col items-center justify-center border-black border-b-2 cursor-pointer">
+              <figure className="">
+                <img src={homeImg} className="w-7" alt="home icon" />
               </figure>
               <h1 className="font-bold text-xs text-muted-foreground">Homes</h1>
             </div>
-            <div className="flex flex-col items-center justify-center">
-              <figure>
-                <img src={experiencesImg} className="w-6" alt="home icon" />
+            <div className="flex flex-col items-center justify-center cursor-pointer">
+              <figure className="relative">
+                <img src={experiencesImg} className="w-8" alt="home icon" />
+                <div className="absolute -top-2.5 -right-8 badgeBg py-0.5 px-1.5 rounded-t-sm rounded-br-sm border-[#2e3e5d]">
+                  <h1 className="text-[8px] font-extrabold text-white">NEW</h1>
+                </div>
               </figure>
               <h1 className=" text-xs text-muted-foreground">Experiences</h1>
             </div>
-            <div className="flex flex-col items-center justify-center">
-              <figure>
-                <img src={serviceImg} className="w-6" alt="home icon" />
+            <div className="flex flex-col items-center justify-center cursor-pointer">
+              <figure className="relative">
+                <img src={serviceImg} className="w-8" alt="home icon" />
+                <div className="absolute -top-2.5 -right-8 badgeBg py-0.5 px-1.5 rounded-t-sm rounded-br-sm border-[#2e3e5d]">
+                  <h1 className="text-[8px] font-extrabold text-white">NEW</h1>
+                </div>
               </figure>
               <h1 className=" text-xs text-muted-foreground">Services</h1>
             </div>
@@ -217,10 +233,10 @@ const Navbar = () => {
                   />
                 </h2>
               </div>
-              <div className="flex">
+              <div className="flex ">
                 <Popover>
                   <PopoverTrigger>
-                    <div className="hover:bg-gray-100 w-full h-full flex flex-col items-stretch justify-center rounded-full">
+                    <div className="cursor-pointer hover:bg-gray-100 w-full h-full flex flex-col items-stretch justify-center rounded-full">
                       <div className="border-l border-r hover:border-none px-8 text-left">
                         <h2 className="font-bold text-xs">Check in</h2>
                         <h2 className="text-gray-500 text-[14px] w-max">
@@ -244,7 +260,7 @@ const Navbar = () => {
                 </Popover>
                 <Popover>
                   <PopoverTrigger>
-                    <div className="hover:bg-gray-100 w-full h-full rounded-full flex flex-col items-stretch justify-center">
+                    <div className="cursor-pointer hover:bg-gray-100 w-full h-full rounded-full flex flex-col items-stretch justify-center">
                       <div className=" border-r hover:border-none px-8 text-left">
                         <h2 className="font-bold text-xs">Check out</h2>
                         <h2 className="text-gray-500 text-[14px] w-max">

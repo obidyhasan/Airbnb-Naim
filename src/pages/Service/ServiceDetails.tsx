@@ -14,12 +14,6 @@ import { Progress } from "@/components/ui/progress";
 import { FaStar } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 
-import logo from "@/assets/Logo/Airbnb_Logo.webp";
-import onlyLogo from "@/assets/Logo/Airbnb_only_logo.png";
-import webIcon from "@/assets/icon/web.svg";
-import menuIcon from "@/assets/icon/menu.svg";
-import homeImg from "@/assets/image/home_img.png";
-import { IoSearch } from "react-icons/io5";
 import { Link, useParams } from "react-router";
 import b1 from "@/assets/services/b-1.png";
 import b2 from "@/assets/services/download (24).svg";
@@ -48,21 +42,15 @@ import d2 from "@/assets/services/download.svg";
 import d3 from "@/assets/services/download (4).svg";
 import d4 from "@/assets/services/download (1).svg";
 
-import type { IFooterLink, IReview, IServiceCard } from "@/types";
-import { FaFacebook } from "react-icons/fa";
-import { TbWorld } from "react-icons/tb";
-import { FaXTwitter, FaInstagram } from "react-icons/fa6";
-import { FaArrowLeft } from "react-icons/fa6";
-import {
-  companyLinks,
-  hostingLinks,
-  supportLinks,
-} from "@/constants/footerData";
-import FooterLinkItem from "@/components/modules/Footer/FooterLinkItem";
 import { useGetSingleServicesQuery } from "@/redux/features/service/service.api";
 import { reviewsData } from "@/constants/commentData";
 import ReviewItemCard from "@/components/modules/Service/ReviewItemCard";
 import { SkeletonServiceDetails } from "./SkeletonServiceDetails";
+import DetailsServiceNavbar from "@/components/layouts/DetailsServiceNavbar";
+import type { IReview, IServiceCard } from "@/types";
+import { FaArrowLeft } from "react-icons/fa6";
+import DetailsServiceFooter from "@/components/layouts/DetailsServiceFooter";
+import ScrollToTop from "@/utils/ScrollToTop";
 
 const ServiceDetails = () => {
   const { id } = useParams();
@@ -75,63 +63,10 @@ const ServiceDetails = () => {
 
   return (
     <div>
-      <nav className="border-b sticky top-0 z-50 bg-white hidden md:flex">
-        <div className="w-full">
-          <div className="max-w-6xl mx-auto px-6 md:px-8 md:flex justify-between items-center gap-5">
-            <Link to={"/"} className="max-w-[102px] my-8 hidden lg:flex">
-              <img src={logo} alt="Airbnb Logo" />
-            </Link>
-            <Link to={"/"} className="max-w-9 lg:hidden">
-              <img src={onlyLogo} alt="Airbnb Logo" />
-            </Link>
-
-            <div className="my-auto ">
-              <div className="bg-white border-muted rounded-full flex justify-center items-center p-2 gap-3 shadow-md ">
-                <div className="flex items-center justify-center gap-3">
-                  <img src={homeImg} alt="home image" className="w-7 ml-2" />
-                  <h1 className="font-bold">Anywhere</h1>
-                </div>
-                <div>
-                  <h1 className="border-l border-r px-3 font-bold">Anytime</h1>
-                </div>
-                <div>
-                  <h1 className="font-bold">Add Guests</h1>
-                </div>
-                <Button
-                  variant={"ghost"}
-                  size={"icon"}
-                  className="rounded-full bg-[#ff385c] hover:bg-[#ff385c]"
-                >
-                  <IoSearch className="text-white" />
-                </Button>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 my-6">
-              <Button
-                variant={"ghost"}
-                className="rounded-full font-bold text-[15px]  hidden lg:flex"
-              >
-                Become a host
-              </Button>
-              <Button
-                variant={"ghost"}
-                size={"icon"}
-                className="rounded-full bg-muted"
-              >
-                <img src={webIcon} alt="web icon" className="w-4" />
-              </Button>
-              <Button
-                variant={"ghost"}
-                size={"icon"}
-                className="rounded-full bg-muted"
-              >
-                <img src={menuIcon} alt="menu icon" className="w-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <ScrollToTop />
+      {/* Navbar */}
+      <DetailsServiceNavbar />
+      {/* Service Details Section */}
       <section className="relative my-6 max-w-6xl mx-auto px-6 md:px-8">
         {/* title */}
         <div className="flex items-center justify-between">
@@ -169,8 +104,8 @@ const ServiceDetails = () => {
               />
             </figure>
           </div>
-          <div className="md:grid gap-3 grid-cols-4 relative hidden">
-            <figure className="col-span-2 row-span-2 w-full h-full">
+          <div className="md:grid gap-3 grid-cols-4 relative hidden w-full h-full">
+            <figure className="col-span-2 row-span-2 w-full h-[492px]">
               <img
                 src={services?.images[0]}
                 alt="room image"
@@ -215,10 +150,16 @@ const ServiceDetails = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-10 border-b pb-10">
+        {/* Author Info */}
+        <div className="grid grid-cols-3 gap-10 border-b pb-10 relative">
           <div className="col-span-3 lg:col-span-2">
             <div>
-              <h2 className="font-semibold text-2xl">{services?.city}</h2>
+              <h2 className="font-semibold text-2xl hidden md:flex">
+                {services?.city}
+              </h2>
+              <h2 className="font-semibold text-2xl md:hidden">
+                {services?.name}
+              </h2>
               <p>3 guests · 1 bedroom · 1 bed · 1 bath</p>
             </div>
             <div className="border rounded-2xl py-4 px-2 sm:p-5 my-6 flex gap-2 sm:gap-4 justify-between lg:justify-center items-center">
@@ -254,7 +195,7 @@ const ServiceDetails = () => {
             <div className="flex gap-5 items-center pt-2 pb-5 border-b">
               <figure className="relative">
                 <img
-                  src="https://i.ibb.co.com/Zz0PMNj/listening-applicant.jpg"
+                  src="https://i.ibb.co.com/ZzDDz94J/17517.jpg"
                   alt="author image"
                   className="w-10 h-10 object-cover rounded-full bg-muted"
                 />
@@ -419,16 +360,17 @@ const ServiceDetails = () => {
               </div>
             </div>
           </div>
+          {/* make this section */}
           <div className="hidden lg:flex w-full">
-            <div className="sticky top-32 w-full">
+            <div className="sticky top-32 self-start w-full">
               <div className="border rounded-xl shadow-lg py-8 px-5 flex flex-col gap-4">
                 <h2 className="font-semibold text-2xl">Add dates for prices</h2>
-                <div className="grid grid-cols-2 grid-rows-2 border border-black rounded-xl">
+                <div className="grid grid-cols-2 grid-rows-2 border border-black rounded-xl cursor-pointer">
                   <div className="p-4 border-r border-black flex items-start flex-col justify-center">
                     <p className="text-[10px] font-bold">CHECK-IN</p>
                     <p className="text-base">Add date</p>
                   </div>
-                  <div className="p-4  flex items-start flex-col justify-center">
+                  <div className="p-4 flex items-start flex-col justify-center">
                     <p className="text-[10px] font-bold">CHECKOUT</p>
                     <p className="text-base">Add date</p>
                   </div>
@@ -451,6 +393,7 @@ const ServiceDetails = () => {
             </div>
           </div>
         </div>
+        {/* Others part */}
         <div>
           <div className="flex flex-col items-center justify-center my-12">
             <div className="flex items-center gap-2">
@@ -568,16 +511,21 @@ const ServiceDetails = () => {
               </p>
             </div>
           </div>
-          {/* <div>
+          <div>
             <div className="pt-10 pb-16 border-b">
               <h1 className="font-bold text-xl">Where you'll sleep</h1>
 
               <p className="text-base font-semibold text-muted-foreground mt-5">
                 {services?.author?.address}
               </p>
-              <div className="w-full h-[470px] bg-muted mt-6"></div>
+              <div className="w-full h-[440px] mt-6 rounded-2xl">
+                <iframe
+                  className="rounded-2xl w-full h-full "
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d138614.3966711246!2d100.4639057!3d13.9101819!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e298d37c8ea94b%3A0x4cb7e308f7682ef5!2sAmara%20Bangkok!5e1!3m2!1sen!2sbd!4v1759127467414!5m2!1sen!2sbd"
+                ></iframe>
+              </div>
             </div>
-          </div> */}
+          </div>
           {/* Meet Your Host */}
           <div>
             <div className="pt-10 pb-16 border-b">
@@ -589,9 +537,7 @@ const ServiceDetails = () => {
                     <div className="w-2/3 flex flex-col items-center justify-center">
                       <figure className="relative">
                         <img
-                          src={
-                            "https://i.ibb.co.com/Zz0PMNj/listening-applicant.jpg"
-                          }
+                          src={"https://i.ibb.co.com/ZzDDz94J/17517.jpg"}
                           className="w-28 h-28 rounded-full bg-muted object-cover"
                           alt=""
                         />
@@ -599,7 +545,7 @@ const ServiceDetails = () => {
                           <img src={d3} className="w-4 h-4" alt="icon" />
                         </figure>
                       </figure>
-                      <h2 className="text-3xl font-bold mt-3">
+                      <h2 className="text-3xl font-bold mt-3 text-center">
                         {services?.author?.name}
                       </h2>
                       <div className="flex items-center gap-2">
@@ -716,93 +662,7 @@ const ServiceDetails = () => {
         </div>
       </section>
       {/* Footer */}
-      <section className="w-full bg-[#FCFCFC] border-t border-muted">
-        <footer className="max-w-6xl mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-14">
-            {/* Support */}
-            <div className="space-y-3">
-              <h1 className="font-bold">Support</h1>
-              {supportLinks?.map((link: IFooterLink) => (
-                <FooterLinkItem key={link.id} item={link} />
-              ))}
-            </div>
-            {/* Hosting */}
-            <div className="space-y-3">
-              <h1 className="font-bold">Hosting</h1>
-              {hostingLinks?.map((link: IFooterLink) => (
-                <FooterLinkItem key={link.id} item={link} />
-              ))}
-            </div>
-            {/* Airbnb */}
-            <div className="space-y-3">
-              <h1 className="font-bold">Airbnb</h1>
-              {companyLinks?.map((link: IFooterLink) => (
-                <FooterLinkItem key={link.id} item={link} />
-              ))}
-            </div>
-          </div>
-          <div className="flex lg:flex-row-reverse  flex-col gap-4 justify-between items-center py-7 border-t">
-            <div className="w-full lg:w-auto flex items-center justify-between lg:justify-center gap-3 ">
-              <div className="flex items-center justify-between gap-3 ">
-                <h1 className="font-bold flex items-center justify-center gap-2 cursor-pointer">
-                  <TbWorld className="text-lg" />
-                  <span className="text-sm">English(US)</span>
-                </h1>
-                <h1 className="font-bold flex items-center justify-center gap-2 cursor-pointer">
-                  <span className="text-sm">$</span>
-                  <span className="text-sm">USD</span>
-                </h1>
-              </div>
-              <div className="flex items-center justify-between lg:justify-center gap-3 ">
-                <Button
-                  size={"icon"}
-                  variant={"ghost"}
-                  className="rounded-full cursor-pointer"
-                >
-                  <FaFacebook />
-                </Button>
-                <Button
-                  size={"icon"}
-                  variant={"ghost"}
-                  className="rounded-full cursor-pointer"
-                >
-                  <FaXTwitter />
-                </Button>
-                <Button
-                  size={"icon"}
-                  variant={"ghost"}
-                  className="rounded-full cursor-pointer"
-                >
-                  <FaInstagram />
-                </Button>
-              </div>
-            </div>
-            <div className="w-full sm:flex-row flex-col flex items-center justify-start gap-2 text-sm font-medium">
-              <div className="w-full sm:w-auto flex items-center justify-start gap-2">
-                <span>© 2025 Airbnb, Inc.</span>
-                <span className="font-bold hidden sm:flex">·</span>
-              </div>
-              <div className="w-full sm:w-auto flex items-center justify-start gap-2">
-                <Link to={"/"} className="hover:underline">
-                  Terms
-                </Link>
-                <span className="font-bold">·</span>
-                <Link to={"/"} className="hover:underline">
-                  Sitemap
-                </Link>
-                <span className="font-bold">·</span>
-                <Link to={"/"} className="hover:underline">
-                  Privacy
-                </Link>
-                <span className="font-bold">·</span>
-                <Link to={"/"} className="hover:underline">
-                  Your Privacy Choices
-                </Link>
-              </div>
-            </div>
-          </div>
-        </footer>
-      </section>
+      <DetailsServiceFooter />
     </div>
   );
 };
