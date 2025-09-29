@@ -4,7 +4,7 @@ import { useGetAllServicesQuery } from "@/redux/features/service/service.api";
 import type { IService } from "@/types";
 import SkeletonHome from "./SkeletonHome";
 import Navbar from "@/components/layouts/Navbar";
-import { Footer } from "react-day-picker";
+import Footer from "@/components/layouts/Footer";
 
 const Home = () => {
   const { data, isLoading } = useGetAllServicesQuery(undefined);

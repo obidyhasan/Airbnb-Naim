@@ -11,8 +11,22 @@ import { Link } from "react-router";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "../ui/calendar";
+import { format } from "date-fns";
+import { toast } from "sonner";
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const [location, setLocation] = useState("");
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [guest, setGuest] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +35,24 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const searchHandle = () => {
+    if (!location) {
+      return toast.error("Select you destinations");
+    }
+
+    if (!startDate) {
+      return toast.error("Select you check in date");
+    }
+    if (!endDate) {
+      return toast.error("Select you check out date");
+    }
+    if (!guest) {
+      return toast.error("Select you guest number");
+    }
+
+    toast.info("Not available right now!");
+  };
 
   return (
     <nav
@@ -34,7 +66,6 @@ const Navbar = () => {
           <img src={onlyLogo} alt="Airbnb Logo" />
         </Link>
 
-        {/* a animation */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <AnimatePresence mode="wait">
             {isScrolled ? (
@@ -178,32 +209,80 @@ const Navbar = () => {
             <div className=" w-full mb-9 md:mb-9 mt-4 bg-white rounded-full shadow-xl border-gray-100 border flex justify-between max-w-3xl mx-auto ">
               <div className="hover:bg-gray-100 grow py-2 px-8 rounded-full flex flex-col items-stretch justify-center">
                 <h2 className="font-bold text-xs">Where</h2>
-                <h2 className="text-gray-500 text-[14px]">
-                  Search destinations
+                <h2 className="text-muted-foreground text-[14px] mt-0.5">
+                  <input
+                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder="Search destinations"
+                    className=" border-none outline-none placeholder:text-muted-foreground"
+                  />
                 </h2>
               </div>
               <div className="flex">
-                <div className="hover:bg-gray-100 flex flex-col items-stretch justify-center rounded-full">
-                  <div className="border-l border-r hover:border-none px-8">
-                    <h2 className="font-bold text-xs">Check in</h2>
-                    <h2 className="text-gray-500 text-[14px]">Add dates</h2>
-                  </div>
-                </div>
-                <div className="hover:bg-gray-100 rounded-full flex flex-col items-stretch justify-center">
-                  <div className=" border-r hover:border-none px-8">
-                    <h2 className="font-bold text-xs">Check out</h2>
-                    <h2 className="text-gray-500 text-[14px]">Add dates</h2>
-                  </div>
-                </div>
+                <Popover>
+                  <PopoverTrigger>
+                    <div className="hover:bg-gray-100 w-full h-full flex flex-col items-stretch justify-center rounded-full">
+                      <div className="border-l border-r hover:border-none px-8 text-left">
+                        <h2 className="font-bold text-xs">Check in</h2>
+                        <h2 className="text-gray-500 text-[14px] w-max">
+                          {startDate
+                            ? format(startDate, "yyyy-MM-dd")
+                            : "Add dates"}
+                        </h2>
+                      </div>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <Calendar
+                      mode="single"
+                      selected={startDate}
+                      onSelect={setStartDate}
+                      className=""
+                      captionLayout="dropdown"
+                      disabled={{ before: new Date() }}
+                    />
+                  </PopoverContent>
+                </Popover>
+                <Popover>
+                  <PopoverTrigger>
+                    <div className="hover:bg-gray-100 w-full h-full rounded-full flex flex-col items-stretch justify-center">
+                      <div className=" border-r hover:border-none px-8 text-left">
+                        <h2 className="font-bold text-xs">Check out</h2>
+                        <h2 className="text-gray-500 text-[14px] w-max">
+                          {endDate
+                            ? format(endDate, "yyyy-MM-dd")
+                            : "Add dates"}
+                        </h2>
+                      </div>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <Calendar
+                      mode="single"
+                      selected={endDate}
+                      onSelect={setEndDate}
+                      className=""
+                      captionLayout="dropdown"
+                      disabled={{ before: new Date() }}
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
-              <div className="grow hover:bg-gray-100 py-2 pl-8 pr-2  rounded-full flex justify-between items-center gap-4">
+              <div className="grow hover:bg-gray-100 py-2 pl-4 pr-2  rounded-full flex justify-between items-center gap-4">
                 <div className="flex flex-col items-stretch justify-center ">
                   <h2 className="font-bold text-xs">Who</h2>
-                  <h2 className="text-gray-500 text-[14px]">Add guests</h2>
+                  <h2 className="text-muted-foreground text-[14px] mt-0.5">
+                    <input
+                      onChange={(e) => setGuest(e.target.value)}
+                      placeholder="Add guest"
+                      className=" border-none outline-none placeholder:text-muted-foreground"
+                    />
+                  </h2>
                 </div>
+
                 <Button
+                  onClick={searchHandle}
                   variant={"ghost"}
-                  className="w-12 h-12 rounded-full bg-[#ff385c] hover:bg-[#ff385c]"
+                  className="w-12 h-12 rounded-full bg-[#ff385c] hover:bg-[#ff385c] cursor-pointer"
                 >
                   <IoSearch className="text-white text-3xl" />
                 </Button>
@@ -212,46 +291,6 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* <div
-        className={`px-6 lg:px-12 transition-all duration-500 ease-in-out transform ${
-          isScrolled
-            ? "opacity-0 scale-95 max-h-0 overflow-hidden"
-            : "opacity-100 scale-100 max-h-[500px]"
-        }`}
-      >
-        <div className="w-full mb-9 md:mb-9 mt-4 bg-white rounded-full shadow-xl border-gray-100 border flex justify-between max-w-4xl mx-auto ">
-          <div className="hover:bg-gray-100 grow py-2 px-8 rounded-full flex flex-col items-stretch justify-center">
-            <h2 className="font-bold text-xs">Where</h2>
-            <h2 className="text-gray-500 text-[14px]">Search destinations</h2>
-          </div>
-          <div className="flex">
-            <div className="hover:bg-gray-100 flex flex-col items-stretch justify-center rounded-full">
-              <div className="border-l border-r hover:border-none px-8">
-                <h2 className="font-bold text-xs">Check in</h2>
-                <h2 className="text-gray-500 text-[14px]">Add dates</h2>
-              </div>
-            </div>
-            <div className="hover:bg-gray-100 rounded-full flex flex-col items-stretch justify-center">
-              <div className=" border-r hover:border-none px-8">
-                <h2 className="font-bold text-xs">Check out</h2>
-                <h2 className="text-gray-500 text-[14px]">Add dates</h2>
-              </div>
-            </div>
-          </div>
-          <div className="grow hover:bg-gray-100 py-2 pl-8 pr-2  rounded-full flex justify-between items-center gap-4">
-            <div className="flex flex-col items-stretch justify-center ">
-              <h2 className="font-bold text-xs">Who</h2>
-              <h2 className="text-gray-500 text-[14px]">Add guests</h2>
-            </div>
-            <Button
-              variant={"ghost"}
-              className="w-12 h-12 rounded-full bg-[#ff385c] hover:bg-[#ff385c]"
-            >
-              <IoSearch className="text-white text-3xl" />
-            </Button>
-          </div>
-        </div>
-      </div> */}
     </nav>
   );
 };

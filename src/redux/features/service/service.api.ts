@@ -13,14 +13,6 @@ export const serviceApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
-    // allUsers: builder.query({
-    //   query: (params) => ({
-    //     url: "/user",
-    //     method: "GET",
-    //     params,
-    //   }),
-
-    // }),
   }),
 });
 

@@ -165,7 +165,7 @@ const ServiceDetails = () => {
               <img
                 src={services?.images[0]}
                 alt="room image"
-                className="md:hidden bg-muted w-full h-[300px] object-cover rounded-bl-xl rounded-tl-xl"
+                className="md:hidden bg-muted w-full h-[300px] object-cover rounded-xl"
               />
             </figure>
           </div>
