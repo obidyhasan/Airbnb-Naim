@@ -8,7 +8,7 @@ Welcome to the Airbnb-Naim project! This repository showcases a comprehensive Ai
 
 Experience the application in action:
 
-👉 [Live Demo](https://airbnb-naim.netlify.app)
+👉 [Live Demo](https://airbnb-naim.vercel.app)
 
 ---
 
