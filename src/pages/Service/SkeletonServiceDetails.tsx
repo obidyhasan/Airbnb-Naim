@@ -1,9 +1,11 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
+import ScrollToTop from "@/utils/ScrollToTop";
 
 export function SkeletonServiceDetails() {
   return (
     <div>
+      <ScrollToTop />
       {/* Navbar Skeleton */}
       <nav className="border-b sticky top-0 z-50 bg-white hidden md:flex">
         <div className="w-full">
